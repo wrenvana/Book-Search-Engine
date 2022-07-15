@@ -1,30 +1,41 @@
 const { gql } = require("apollo-server-express");
 
-// TODO: Update typedefs code from old activity to be relevant
+const typeDefs = gql`
+    type User {
+    _id: ID
+    username: String
+    email: String
+    bookCount: Int
+    saveBooks: [Book]
+    }
 
-// const typeDefs = gql`
-//   type Tech {
-//     _id: ID!
-//     name: String!
-//   }
+    type Book {
+    _id: ID
+    author: [String]
+    bookId: String
+    description: String
+    title: String
+    image: String
+    link: String
+    }
 
-//   type Matchup {
-//     _id: ID!
-//     tech1: String!
-//     tech2: String!
-//     tech1_votes: Int
-//     tech2_votes: Int
-//   }
+    type Auth {
+    token: ID!
+    user: User
+    }
 
-//   type Query {
-//     tech: [Tech]
-//     matchups(_id: String): [Matchup]
-//   }
+    type Query {
+    me: User
+    users: [User]
+    user: (email:String!):User
+    }
 
-//   type Mutation {
-//     createMatchup(tech1: String!, tech2: String!): Matchup
-//     createVote(_id: String!, techNum: Int!): Matchup
-//   }
-// `;
+    type Mutation {
+    login(email:String!, password:String!):Auth
+    addUser(username: String!, email:String!, password: String!): Auth
+    saveBook(_id: String!, author: String!, bookId: String!, description: String!, title: String!, image: String!, link: String!): User
+    removeBook(_id: String!): User
+    }
+`;
 
 module.exports = typeDefs;
