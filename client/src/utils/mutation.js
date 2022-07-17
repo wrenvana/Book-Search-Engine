@@ -37,6 +37,7 @@ export const SAVE_BOOK = gql`
         bookId
         image
         title
+        link
         }
     }
     }
@@ -53,6 +54,7 @@ export const REMOVE_BOOK = gql`
         bookId
         image
         title
+        link
         }
     }
     }
