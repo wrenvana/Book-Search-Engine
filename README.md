@@ -13,7 +13,7 @@ This application will allow the user to search for books and save them to a list
 
 ----------------------------------------------------------------
 ## Usage
-App is deployed via <a href="#">Heroku.</a>
+App is deployed via <a href="https://polar-dawn-41512.herokuapp.com/">Heroku.</a>
 
 ![App Screenshot](Screenshot.jpg)
 
