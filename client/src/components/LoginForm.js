@@ -7,7 +7,10 @@ import { useMutation, useQuery } from '@apollo/client';
 
 const LoginForm = () => {
   const [login, { error, data }] = useMutation(LOGIN_USER);
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  if (error) {
+    console.error(error)
+  }
+  const [formState, setFormState] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -15,9 +18,6 @@ const LoginForm = () => {
 
 const handleInputChange = (event) => {
   const { name, value } = event.target;
-  setUserFormData({ ...userFormData, [name]: value });
-};
-
 
 setFormState({
   ...formState,
@@ -40,8 +40,6 @@ setFormState({
         variables: { ...formState }
       });
 
-      const { token, user } = await response.json();
-      console.log(user);
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
@@ -70,7 +68,7 @@ setFormState({
             placeholder='Your email'
             name='email'
             onChange={handleInputChange}
-            value={userFormData.email}
+            value={formState.email}
             required
           />
           <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
@@ -83,13 +81,13 @@ setFormState({
             placeholder='Your password'
             name='password'
             onChange={handleInputChange}
-            value={userFormData.password}
+            value={formState.password}
             required
           />
           <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
         </Form.Group>
         <Button
-          disabled={!(userFormData.email && userFormData.password)}
+          disabled={!(formState.email && formState.password)}
           type='submit'
           variant='success'>
           Submit
