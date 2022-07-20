@@ -8,19 +8,21 @@ require('dotenv').config({ path: './.env' });
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
 });
+server.applyMiddleware({ app })
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 
-const startApolloServer = async (typeDefs, resolvers) => {
-  await server.start();
-  server.applyMiddleware({ app });
+// const startApolloServer = async (typeDefs, resolvers) => {
+//   await server.start();
+//   server.applyMiddleware({ app });
 
   db.once("open", () => {
     app.listen(PORT, () => {
@@ -30,7 +32,6 @@ const startApolloServer = async (typeDefs, resolvers) => {
       );
     });
   });
-};
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
