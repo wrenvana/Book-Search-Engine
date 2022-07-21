@@ -1,72 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
-
-import { getMe, deleteBook } from '../utils/API';
-import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 import { useMutation, useQuery } from '@apollo/client';
 import { REMOVE_BOOK } from '../utils/mutation';
 import { QUERY_ME } from '../utils/queries';
 
 const SavedBooks = () => {
-
-
-  // Needs finishing
-  // const [removeBook, { error }] = useMutation(REMOVE_BOOK);
-  // if (error) {
-  //   console.error(error)
-  // };
-  // const { loading, data } = useQuery(QUERY_ME);
-  // const [userData, setUserData] = useState({});
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-        if (!token) {
-          return false;
-        }
-      } catch (err) {
-        console.error(err);
-      }
-  }});
- //
-
-
-
+  const { loading, data: userData } = useQuery(QUERY_ME);
+  const [takeBookOut] = useMutation(REMOVE_BOOK);
 
   const handleDeleteBook = async (bookId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) {
-      return false;
-    }
-    try {
-      const { data } = await removeBook({
-        variables: { bookId }
-      });
-      if (error) {
-        console.error(error)
-      }
+  try {
+    await takeBookOut ({
+      variables: {bookId}
+    });
 
-      const updatedUser = await removeBook({
-        variables: { bookId }
-      });
-      setUserData(updatedUser);
-      removeBookId(data.bookId);
-    } catch (err) {
-      console.error(err);
-    }
+    removeBookId(bookId);
+  } catch (err) {
+    console.err(err)
   };
-
-
-
-
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
-  }
-
+  console.log(userData)
+  };
 
   return (
     <>
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : !userData ? (
+        <h2>You must be logged in to view saved books</h2>
+      ) : (
+        <>
       <Jumbotron fluid className='text-light bg-dark'>
         <Container>
           <h1>Viewing saved books!</h1>
@@ -97,6 +60,9 @@ const SavedBooks = () => {
         </CardColumns>
       </Container>
     </>
+      )}
+      </>
+
   );
 };
 
