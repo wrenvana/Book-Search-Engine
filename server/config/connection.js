@@ -1,7 +1,8 @@
+const { connect } = require('mongoose');
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '../.env' });
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/googlebooks', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/googlebooks', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -9,12 +10,12 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/googlebooks', {
 });
 
 const connection = mongoose.connection;
-conn.on("connected", function () {
+connection.on("connected", function () {
   console.log("Connection successful.");
 });
-conn.on("disconnected", function () {
+connection.on("disconnected", function () {
   console.log("Disconnected successfully.");
 });
-conn.on("error", console.error.bind(console, "Connection error:"));
+connection.on("error", console.error.bind(console, "Connection error:"));
 
 module.exports = connection;
