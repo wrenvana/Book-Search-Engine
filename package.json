@@ -1,7 +1,7 @@
 {
   "name": "googlebooks-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "----------------------------------------------------------------\r - ## [Description](#Description)\r - ## [Usage](#usage)\r - ## [Contributors](#Contributors)\r - ## [License](#License)\r - ## [Username](#Username)\r - ## [Email](#Email)\r ----------------------------------------------------------------\r ## Description\r This application will allow the user to search for books and save them to a list to reference to later or remove books from the list as desired. This way users are able to keep a list of books they wish to read or purchase with ease.",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -10,7 +10,7 @@
     "build": "cd client && npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Wren Sanchez",
   "license": "ISC",
   "engines": {
     "node": "v16.15.0",
@@ -21,7 +21,15 @@
     "concurrently": "^5.1.0",
     "express": "^4.18.1"
   },
-    "devDependencies": {
-      "concurrently": "^5.1.0"
-    }
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wrenvana/Book-Search-Engine.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wrenvana/Book-Search-Engine/issues"
+  },
+  "homepage": "https://github.com/wrenvana/Book-Search-Engine#readme"
 }
