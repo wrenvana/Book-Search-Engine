@@ -16,8 +16,6 @@ const server = new ApolloServer({
   cache: "bounded",
 });
 
-server.applyMiddleware({ app });
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -31,6 +29,7 @@ app.get('/', (req, res) => {
 
 const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();
+  server.applyMiddleware({ app });
 
   db.once("open", () => {
     app.listen(PORT, () => {
