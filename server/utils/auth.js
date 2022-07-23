@@ -1,11 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-// set token secret and expiration date
 const secret = 'mysecretsshhhhh';
 const expiration = '2h';
 
 module.exports = {
-  // function for our authenticated routes
   authMiddleware: function ({ req }) {
     let token = req.body.token || req.headers.authorization;
 
@@ -25,7 +23,6 @@ module.exports = {
       return req;
     }
 
-    // send to next endpoint
     next();
   },
   signToken: function ({ username, email, _id }) {

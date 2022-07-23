@@ -16,6 +16,7 @@ const server = new ApolloServer({
   cache: "bounded",
 });
 
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -39,6 +40,6 @@ const startApolloServer = async (typeDefs, resolvers) => {
       );
     });
   });
+};
 
 startApolloServer(typeDefs, resolvers);
-}
